@@ -1,13 +1,17 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
 
 
 # Create your views here.
 def login(request):
-    if request.method=='GET':
-        context={}
-        render(request,'login.html',context)
+    template=loader.get_template('login.html')
+    return HttpResponse(template.render())
+
 def register(request):
-    pass
+    template=loader.get_template('registeration.html')
+    return HttpResponse(template.render())
+    
 
 
     
