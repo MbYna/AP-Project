@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=Lalezar&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         body{
             background-color: #f7ccac;
@@ -22,65 +28,124 @@
 		}
         nav ul {
             display: flex;
-            /* Optional: Add more styling (e.g., justify-content, padding) as needed */
+            
         }
         li {
             list-style: none;
-            margin-right: 150px; /* Optional: Adjust spacing between items */
+            margin-right: 130px;
         }
         .icon-label {
             display: flex;
             align-items: center;
             color: #f7ccac;
+            margin-top: 6px;
         }
         .icon-label a {
             text-decoration: none;
         }
-        
+
         .icon {
             margin-left: 8px;
-            color: #f7ccac; /* Optional: Adjust spacing between icon and label */
+            color: #f7ccac;
         }
         .navbar {
             display: flex;
             background-color:#3a3845;
-            justify-content: right;
+            justify-content: center;
+            margin-bottom: 20px;
         }
         .name {
             color: #f7ccac;
         }
-
-
+        .dropdown {
+            position: relative;
+            margin-left: auto;
+        }
+        .dropbtn {
+            background-color: inherit;
+            color: #f7ccac;
+            border: none;
+            outline: none;
+            font-family: inherit;;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #3a3845;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: #f7ccac;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: right;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:active .dropdown-content {
+            display: block;
+        }
+        .dropdown:focus-within .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
-    <div class="navbar , lalezar-regular">
+    <div class="navbar lalezar-regular">
         <nav>
             <ul>
-                <li>
-                    <div class="icon-label"><a href="" class="name">خروج</a><i class="gg-enter icon"></i>
+                <li class="dropdown">
+                    <div class="icon-label"><i class="gg-menu icon"></i><button class="dropbtn" >منو</button></div>
+                    <div class="dropdown-content">
+                        <a href="#">نوشیدنی های گرم</a>
+                        <a href="#">نوشیدنی های سرد</a>
+                        <a href="#">کیک</a>
+                        <a href="#">دمنوش</a>
                     </div>
+                <li>
+                    <div class="icon-label"><i class="gg-check-r icon"></i><a href="" class="name">سوابق خرید</a></div>
                 </li>
                 <li>
-                    <div class="icon-label"><a href="" class="name">ورود به حساب کاربری</a><i class="gg-enter icon"></i>
-                    </div>
+                    <div class="icon-label"><i class="gg-shopping-cart icon"></i><a href="" class="name">سبد خرید</a></div>
                 </li>
                 <li>
-                    <div class="icon-label"><a href="" class="name">سبد خرید</a><i class="gg-shopping-cart icon"></i>
-                    </div>
+                    <div class="icon-label"><i class="gg-enter icon"></i><a href="" class="name">ورود به حساب کاربری</a></div>
                 </li>
                 <li>
-                    <div class="icon-label"><a href="" class="name">سوابق خرید</a><i class="gg-check-r icon"></i>
-                    </div>
+                    <div class="icon-label"><i class="gg-enter icon"></i><a href="" class="name" style="margin-left: 100px;">خروج</a></div>
                 </li>
-                <li>
-                    <div class="icon-label">
-                        <a href="" class="name">منو</a><i class="gg-menu icon"></i>
-                    </div>
-                </li>
+
             </ul>
         </nav>
     </div>
+    
+
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><image height="100%" width="100%" href="slider1.png"</image><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><image height="100%" width="100%" href="slider2.jpg"<rect width="100%" height="100%" fill="#666"></rect><text x="50%" y="50%" fill="#444" dy=".3em">Second slide</text></svg>
+          </div>
+          <div class="carousel-item">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><image height="100%" width="100%" href="slider3.jpg"<rect width="100%" height="100%" fill="#555"></rect><text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text></svg>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      
 </body>
 </html>
