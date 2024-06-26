@@ -97,14 +97,8 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							{{form.name}}
+							{{form.username}}
 						</div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            {{form.username}}
-                        </div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
@@ -115,13 +109,13 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							{{form.password}}
+							{{form.password1}}
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-phone"></i></span>
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							{{form.phone}}
+							{{form.password2}}
 						</div>
 
 				   		<div class="d-flex justify-content-center mt-3 login_container">
@@ -140,11 +134,10 @@
 	</div>
 	<script>
 		var form_fields = document.getElementsByTagName('input')
-		form_fields[1].placeholder="نام و نام خانوادگی";
-		form_fields[2].placeholder="نام کاربری";
-		form_fields[3].placeholder="ایمیل";
-		form_fields[4].placeholder="رمز عبور";
-		form_fields[5].placeholder="شماره تماس";
+		form_fields[1].placeholder="نام کاربری";
+		form_fields[2].placeholder="ایمیل";
+		form_fields[3].placeholder="رمز عبور";
+		form_fields[4].placeholder="تکرار رمز عبور";
 
 	</script>
 </body>
