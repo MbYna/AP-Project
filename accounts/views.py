@@ -38,3 +38,7 @@ def menuPage(request):
     products=Product.objects.all()
     context={'products':products}
     return render(request,'accounts/menu.html')
+
+def adminPage(request):
+    return render(request,'accounts/admin.html')
+
