@@ -30,9 +30,3 @@ def registerPage(request):
     context={'form':form}
     return render(request, "accounts/register.html",context)
 
-def menuPage(request):
-    products=Product.objects.all()
-    context={'products':products}
-    return render(request,'accounts/menu.html')
-
-
