@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fa" dir='rtl'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- menu.html -->
+    <div class="hot">
+        {% for product in products if product.category=="نوشیدنی های گرم" %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <button class="order-button">سفارش</button>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="cold">
+        {% for product in products if product.category=="نوشیدنی های سرد" %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <button class="order-button">سفارش</button>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="cake">
+        {% for product in products if product.category=="کیک" %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <button class="order-button">سفارش</button>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="dam">
+        {% for product in products if product.category=="دمنوش" %}
+            <div class="product">
+                <h3>{{ product.name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <button class="order-button">سفارش</button>
+            </div>
+        {% endfor %}
+    </div>
+    
+
+</body>
+</html>
