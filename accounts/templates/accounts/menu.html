@@ -15,7 +15,7 @@
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
                     <p>Price: ${{ product.price }}</p>
                     <input type="number" name="quantity" value="1" min="1">
-                    <button type="submit" class="btn btn-primary">افزودن به سبد خرید</button>
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
                 </div>
             {%endif%}
         {% endfor %}
@@ -28,7 +28,7 @@
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
                     <p>Price: ${{ product.price }}</p>
                     <input type="number" name="quantity" value="1" min="1">
-                    <button type="submit" class="btn btn-primary">افزودن به سبد خرید</button>
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
                 </div>
             {%endif%}
         {% endfor %}
@@ -41,20 +41,20 @@
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
                     <p>Price: ${{ product.price }}</p>
                     <input type="number" name="quantity" value="1" min="1">
-                    <button type="submit" class="btn btn-primary">افزودن به سبد خرید</button>
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
                 </div>
             {%endif%}
         {% endfor %}
     </div>
     <div id="dam">
-        {% for product in products %}
+        {% for product in products  %}
             {% if product.category == "دمنوش" %}
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
-                    <p>${{ product.price }}هزار تومان</p>
+                    <p>Price: ${{ product.price }}</p>
                     <input type="number" name="quantity" value="1" min="1">
-                    <button type="submit" class="btn btn-primary">افزودن به سبد خرید</button>
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
                 </div>
             {%endif%}
         {% endfor %}

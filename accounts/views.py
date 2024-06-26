@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect
 from .forms import *
 from .models import *
 from django.contrib import messages
@@ -36,8 +36,6 @@ def registerPage(request):
 
 def menuPage(request):
     products=Product.objects.all()
-    for product in products:
-        print(product.name) 
     context={'products':products}
     return render(request,'accounts/menu.html')
 
@@ -59,34 +57,4 @@ def addProduct(request):
 def storagePage(request):
     return render(request,'accounts/storage.html')
 
-def cart(request, product_id):
-    # Retrieve the product based on the product ID
-    product = get_object_or_404(Product, id=product_id)
-    n = int(request.POST.get('quantity', 1))
-    if product.has_sufficient_ingredients(n):
-        order, created = Orders.objects.get_or_create(user=request.user)
-        order_product, created_ = OrderProduct.objects.get_or_create(order=order, product=product)
-        if not created_:
-            order_product.quantity = n
-        else:
-            order_product.quantity += n
-        order_product.save()
-        for product_ingredient in product.productingredient_set.all():
-            product_ingredient.storage.amount -= product_ingredient.amount * quantity
-            product_ingredient.storage.save()
-    cart = Cart.objects.get(user=request.user)
 
-    # Check if the product is already in the cart
-    cart_item, created = CartItem.objects.get_or_create(
-        cart=cart,
-        product=product,
-        defaults={'quantity': 1}  # Set the default quantity to 1
-    )
-
-    # If the product was already in the cart, increment the quantity
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-
-    # Redirect to the cart page
-    return redirect('cart_view')  # Replace 'cart_view' with your actual cart view name

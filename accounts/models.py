@@ -33,25 +33,3 @@ class Storage(models.Model):
     name = models.CharField(max_length=255, unique=True)
     amount = models.FloatField(default=0)
 
-class Orders(models.Model):
-    DELIVERY_CHOICES = [
-    ('outside', 'Outside'),
-    ('inside', 'Inside'),
-]
-    username=models.CharField(max_length=255)
-    products=models.CharField(max_length=255)
-    cost=models.IntegerField(default=0)
-    type=models.CharField(max_length=10, choices=DELIVERY_CHOICES, default='Inside')
-
-
-
-class User_Orders(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-class Orders_Product(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-
