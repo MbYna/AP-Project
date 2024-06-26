@@ -38,3 +38,13 @@ def menuPage(request):
     products=Product.objects.all()
     context={'products':products}
     return render(request,'accounts/menu.html')
+
+def addProduct(request):
+    form=Product()
+    if request.method=="POST":
+        form=Product(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    context={'form':form}
+    return render(request, "accounts/admin.html",context)
