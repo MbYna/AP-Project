@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from .forms import *
+from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from APProject import urls
+
 
 def loginPage(request):
     if request.method=="POST":
@@ -27,4 +29,10 @@ def registerPage(request):
             return redirect('login')
     context={'form':form}
     return render(request, "accounts/register.html",context)
+
+def menuPage(request):
+    products=Product.objects.all()
+    context={'products':products}
+    return render(request,'accounts/menu.html')
+
 

@@ -7,40 +7,56 @@
 </head>
 <body>
     <!-- menu.html -->
-    <div class="hot">
-        {% for product in products if product.category=="نوشیدنی های گرم" %}
-            <div class="product">
-                <h3>{{ product.name }}</h3>
-                <p>Price: ${{ product.price }}</p>
-                <button class="order-button">سفارش</button>
-            </div>
+    <div id="hot">
+        {% for product in products %}
+            {%if product.category == "نوشیدنی های گرم" %}
+                <div class="product">
+                    <h3>{{ product.name }}</h3>
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>Price: ${{ product.price }}</p>
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
+                </div>
+            {%endif%}
         {% endfor %}
     </div>
-    <div class="cold">
-        {% for product in products if product.category=="نوشیدنی های سرد" %}
-            <div class="product">
-                <h3>{{ product.name }}</h3>
-                <p>Price: ${{ product.price }}</p>
-                <button class="order-button">سفارش</button>
-            </div>
+    <div id="cold">
+        {% for product in products  %}
+            {% if product.category == "نوشیدنی های سرد" %}
+                <div class="product">
+                    <h3>{{ product.name }}</h3>
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>Price: ${{ product.price }}</p>
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
+                </div>
+            {%endif%}
         {% endfor %}
     </div>
-    <div class="cake">
-        {% for product in products if product.category=="کیک" %}
-            <div class="product">
-                <h3>{{ product.name }}</h3>
-                <p>Price: ${{ product.price }}</p>
-                <button class="order-button">سفارش</button>
-            </div>
+    <div id="cake">
+        {% for product in products %}
+            {% if product.category == "کیک" %}
+                <div class="product">
+                    <h3>{{ product.name }}</h3>
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>Price: ${{ product.price }}</p>
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
+                </div>
+            {%endif%}
         {% endfor %}
     </div>
-    <div class="dam">
-        {% for product in products if product.category=="دمنوش" %}
-            <div class="product">
-                <h3>{{ product.name }}</h3>
-                <p>Price: ${{ product.price }}</p>
-                <button class="order-button">سفارش</button>
-            </div>
+    <div id="dam">
+        {% for product in products  %}
+            {% if product.category == "دمنوش" %}
+                <div class="product">
+                    <h3>{{ product.name }}</h3>
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <p>Price: ${{ product.price }}</p>
+                    <input type="number" name="quantity" value="1" min="1">
+                    <button onclick="orderProduct('{{ product.name }}')">سفارش</button>
+                </div>
+            {%endif%}
         {% endfor %}
     </div>
     
