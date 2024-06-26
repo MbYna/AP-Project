@@ -7,6 +7,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     category = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
 
     def has_sufficient_ingredients(self, n):
         for ingredient in self.ingredients.all():
