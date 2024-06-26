@@ -19,6 +19,10 @@ def loginPage(request):
             
     return render(request, "accounts/login.html")
 
+def logoutPage(request):
+    logout(request)
+    return redirect('home')
+
 def registerPage(request):
     form=Register()
     if request.method=="POST":
@@ -30,3 +34,7 @@ def registerPage(request):
     context={'form':form}
     return render(request, "accounts/register.html",context)
 
+def menuPage(request):
+    products=Product.objects.all()
+    context={'products':products}
+    return render(request,'accounts/menu.html')
