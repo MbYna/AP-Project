@@ -39,6 +39,7 @@ def menuPage(request):
     context={'products':products}
     return render(request,'accounts/menu.html')
 
+<<<<<<< HEAD
 def addProduct(request):
     form=Product()
     if request.method=="POST":
@@ -48,3 +49,8 @@ def addProduct(request):
             return redirect('login')
     context={'form':form}
     return render(request, "accounts/admin.html",context)
+=======
+def adminPage(request):
+    return render(request,'accounts/admin.html')
+
+>>>>>>> 8db2401291d833de65a9f0d93ca73b6dc08d0056
