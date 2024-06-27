@@ -9,7 +9,7 @@
     <!-- menu.html -->
     <div id="hot">
         {% for product in products %}
-            {%if product.category == "نوشیدنی های گرم" %}
+            {%if product.category == "hot" %}
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
@@ -22,7 +22,7 @@
     </div>
     <div id="cold">
         {% for product in products  %}
-            {% if product.category == "نوشیدنی های سرد" %}
+            {% if product.category == "cold" %}
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
@@ -35,7 +35,7 @@
     </div>
     <div id="cake">
         {% for product in products %}
-            {% if product.category == "کیک" %}
+            {% if product.category == "cake" %}
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
@@ -48,7 +48,7 @@
     </div>
     <div id="dam">
         {% for product in products  %}
-            {% if product.category == "دمنوش" %}
+            {% if product.category == "dam" %}
                 <div class="product">
                     <h3>{{ product.name }}</h3>
                     <img src="{{ product.image_url }}" alt="{{ product.name }}">
