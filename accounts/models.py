@@ -22,6 +22,9 @@ class Product(models.Model):
             ingredient_quantity_needed = ingredient.amount
             max_quantity = min(max_quantity, storage_amount // ingredient_quantity_needed)
         return max_quantity
+    
+    def __str__(self):
+        return self.name
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)

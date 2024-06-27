@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from .forms import *
 from .models import *
 from django.contrib import messages
@@ -37,7 +38,7 @@ def registerPage(request):
 def menuPage(request):
     products=Product.objects.all()
     context={'products':products}
-    return render(request,'accounts/menu.html')
+    return render(request,'accounts/menu.html',context)
 
 def adminPage(request):
     return render(request,'accounts/admin.html')
@@ -53,8 +54,17 @@ def addProduct(request):
     return render(request, "accounts/addproduct.html",context)
 
 
-
 def storagePage(request):
+    if request.method == 'POST':
+        # Get user input
+        ingredient_name = request.POST.get('ingr')
+        ingredient_amount = request.POST.get('left')
+
+        # Create an Ingredient instance and save it to the database
+        Storages.objects.create(name=ingredient_name, amount=ingredient_amount)
+
+        # Optionally, you can return an HTTP response or redirect to another page
+        return HttpResponse("Data added successfully!")
     return render(request,'accounts/storage.html')
 
 
