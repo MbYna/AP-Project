@@ -7,7 +7,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     category = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='static/images/', blank=True, null=True)
 
     def has_sufficient_ingredients(self, n):
         for ingredient in self.ingredients.all():
@@ -22,6 +22,9 @@ class Product(models.Model):
             ingredient_quantity_needed = ingredient.amount
             max_quantity = min(max_quantity, storage_amount // ingredient_quantity_needed)
         return max_quantity
+    
+    def __str__(self):
+        return self.name
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=255, unique=True)
