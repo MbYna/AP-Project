@@ -9,7 +9,7 @@ class Register(UserCreationForm):
         model=User
         fields=['username','email','password1','password2']
 
-class Product(forms.Form):
+class ProductForm(forms.ModelForm):
     class Meta:
         model=Product
         fields=['name','price','category']

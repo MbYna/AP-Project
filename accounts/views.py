@@ -39,15 +39,22 @@ def menuPage(request):
     context={'products':products}
     return render(request,'accounts/menu.html')
 
+def adminPage(request):
+    return render(request,'accounts/admin.html')
+
 def addProduct(request):
-    form=Product()
+    form=ProductForm()
     if request.method=="POST":
-        form=Product(request.POST)
+        form=ProductForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('myadmin')
     context={'form':form}
-    return render(request, "accounts/admin.html",context)
-def adminPage(request):
-    return render(request,'accounts/admin.html')
+    return render(request, "accounts/addproduct.html",context)
+
+
+
+def storagePage(request):
+    return render(request,'accounts/storage.html')
+
 
