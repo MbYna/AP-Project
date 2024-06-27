@@ -24,4 +24,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.homePage , name="home"),
     path('',include("accounts.urls")),
-]+static(settings.MEDIA_URL, document_root=settings.STATICFILES_DIRS)
+]
