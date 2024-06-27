@@ -186,9 +186,10 @@
             
         <div class="row">
            <div class="col-md-10 lalezar-regular">
+            <h1 id="hot">نوشیدنی های گرم</h1>
             {% for i in products %}
             {%if i.category == "hot" %}
-            <div class="card card-body" style="margin-bottom: 60px;" id="hot">
+            <div class="card card-body" style="margin-bottom: 60px;">
                 <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                     <div class="mr-2 mb-3 mb-lg-0">
                         
@@ -211,9 +212,10 @@
     </div>
                 {%endif%}
                 {%endfor%}
+            <h1 id="cold">نوشیدنی های سرد</h1>
             {% for i in products %}
             {%if i.category == "cold" %}
-            <div class="card card-body" style="margin-bottom: 60px;" id="hot">
+            <div class="card card-body" style="margin-bottom: 60px;" >
                 <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                     <div class="mr-2 mb-3 mb-lg-0">
                         
@@ -235,10 +237,11 @@
                 <br>
     </div>
 {%endif%}
-{%endfor%}                          
+{%endfor%}       
+            <h1 id="cake">کیک</h1>                   
             {% for i in products %}
             {%if i.category == "cake" %}
-            <div class="card card-body" style="margin-bottom: 60px;" id="hot">
+            <div class="card card-body" style="margin-bottom: 60px;" >
                 <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                     <div class="mr-2 mb-3 mb-lg-0">
                         
@@ -261,9 +264,11 @@
     </div>
                     {%endif%}
                     {%endfor%}
+
+                    <h1 id="dam">دمنوش</h1>
                     {% for i in products %}
                     {%if i.category == "dam" %}
-                    <div class="card card-body" style="margin-bottom: 60px;" id="hot">
+                    <div class="card card-body" style="margin-bottom: 60px;" >
                         <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
                             <div class="mr-2 mb-3 mb-lg-0">
                                 
