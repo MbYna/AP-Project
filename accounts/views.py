@@ -58,3 +58,4 @@ def storagePage(request):
     return render(request,'accounts/storage.html')
 
 
+
