@@ -13,4 +13,6 @@ urlpatterns = [
     path('storage/',views.storagePage, name="storage"),
     path('cart/', views.cart , name="cart"),
     path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
+    path('add_ingredient/', views.add_ingredient, name='add_ingredient'),
+    path('edit_ingredient/', views.edit_ingredient, name='edit_ingredient'),
 ]
