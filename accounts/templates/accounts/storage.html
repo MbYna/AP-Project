@@ -15,7 +15,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	
     <style>
         body{
             background-color: #f7ccac;
@@ -182,8 +183,8 @@
             <div class="table_header">
                 <p>اضافه کردن</p>
                 <div>
-                    <input id="ingr" placeholder="مواد اولیه"/>
-                    <input id="left" placeholder="مقدار باقی مانده"/>
+                    <input type="text" id="ingr" placeholder="مواد اولیه"/>
+                    <input type="number" id="left" placeholder="مقدار باقی مانده"/>
                     <button class="add_new" onclick="addData()">+ اضافه</button>
                 </div>
                 
@@ -198,20 +199,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {%for ingredient in ingredients%}
                         <tr>
-                            <td>شکر</td>
-                            <td>5 کیلوگرم</td>
+                            <td>{{ ingredient.name }}</td>
+                            <td>{{ ingredient.amount }}</td>
                             <td>
-                                <button onclick="editData(this)">Edit</button> 
+                                <button onclick="editData(this, {{ ingredient.id }})">Edit</button>   
                             </td>
                         </tr>
-                        <tr>
-                            <td>قهوه خام</td>
-                            <td>12 کیلوگرم</td>
-                            <td>
-                                <button onclick="editData(this)">Edit</button> 
-                            </td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -222,13 +218,24 @@
             // Get input values
             let ingredient = document.getElementById("ingr").value;
             let amount = document.getElementById("left").value;
-            let table = document.getElementById("outputTable");
-            let newRow = table.insertRow(table.rows.length);
-            newRow.insertCell(0).innerHTML = ingredient;
-            newRow.insertCell(1).innerHTML = amount;
-            newRow.insertCell(2).innerHTML =
-                '<button onclick="editData(this)">Edit</button>'
-            clearInputs();
+            //send AJAX request to add ingredient
+            axios.post('/add_ingredient/', {ingredient: ingredient, amount: amount})
+                .then(function(response){
+                    if(response.data.status === 'success'){
+                        let table = document.getElementById("outputTable");
+                        let newRow = table.insertRow(table.rows.length);
+                        newRow.insertCell(0).innerHTML = ingredient;
+                        newRow.insertCell(1).innerHTML = amount;
+                        newRow.insertCell(2).innerHTML =
+                           '<button onclick="editData(this, '+response.data.id+')">Edit</button>';
+                        clearInputs();
+                    }else{
+                        alert('Failed to add ingredient');
+                    }
+                })
+		.catch(function(error){
+                console.log(error);
+            });
         }
         function editData(button) {
             let row = button.parentNode.parentNode;
@@ -240,11 +247,21 @@
             let leftInput =
                 prompt("Enter the updated:",
                     leftCell.innerHTML);
-            ingCell.innerHTML = ingInput;
-            leftCell.innerHTML = leftInput;
+            //send AJAX request to edit ingredient 
+            axios.post('/edit_ingredient/', {id: id, ingredient: ingInput, amount: leftInput})
+                .then(function(response){
+                    if(response.data.status === 'success'){
+                         ingCell.innerHTML = ingInput;
+                         leftCell.innerHTML = leftInput;
+                    }else{
+                        alert('Failed to edit ingredient');
+                    }
+                })
+                .catch(function(error){
+                console.log(error);
+            });
         }
          function clearInputs() {
-
              // Clear input fields
              document.getElementById("ingr").value = "";
              document.getElementById("left").value = "";
