@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 from .forms import *
 from .models import *
 from django.contrib import messages
@@ -66,7 +67,27 @@ def storagePage(request):
         # Optionally, you can return an HTTP response or redirect to another page
         return HttpResponse("Data added successfully!")
     return render(request,'accounts/storage.html')
-
+    
+def add_ingredient(request):
+    if request.method == "POST":
+        ingredient_name = request.POST.get('ingredient')
+        amount_left = request.POST.get('amount')
+        ingredient = Ingredient(name=ingredient_name, amount=amount_left)
+        ingredient.save()
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'})
+        
+def edit_ingredient(request):
+    if request.method == "POST":
+        ingredient_id = request.POST.get('id')
+        ingredient_name = request.POST.get('ingredient')
+        amount_left = request.POST.get('amount')
+        ingredient = Ingredient.objects.get(id=ingredient_id)
+        ingredient.name = ingredient_name
+        ingredient.amount = amount_left
+        ingredient.save()
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'})
 
 def cart(request):
     order_cart = Orders.objects.filter(user=request.user).first
