@@ -68,4 +68,48 @@ def storagePage(request):
     return render(request,'accounts/storage.html')
 
 
+def cart(request):
+    order_cart = Orders.objects.filter(user=request.user)
+    total = 0
+    items = []
+    if order_cart:
+        for item in Orders_Product.objects.filter(Orders=order_cart):
+            all = item.product.price * item.quantity
+            items.append({
+                'product': item.product,
+                'quantity': item.quantity,
+                'price': item.product.price,
+                'item_total': all,
+                'id': item.id
+            })
+            total += all
+    return render(request, 'accounts/cart.html', {'items': items ,'total': total})
+
+def add_to_cart(request,product_id):
+    product = get_object_or_404(Product, id=product_id)
+    quantity = int(request.POST.get('quantity', 1))
+
+    if product.has_sufficient_ingredients(quantity):   #آیا می‌توان محصول را با تعداد مشخص شده خریداری کرد یا خیر
+        order, created_ = Orders.objects.get_or_create(user=request.user)
+        order_product, created_ = Orders_Product.objects.get_or_create(order=order, product=product)
+        if not created_:
+            order_product.quantity += quantity
+        else:
+            order_product.quantity = quantity
+        order_product.save()
+
+        for Ingredient in product.Ingredient_set.all(): #مقدار موجودی محصول در انبار کاهش می‌یابد
+            Ingredient.Storage.amount -= Ingredient.amount * quantity
+            Ingredient.Storage.save()
+
+        messages.success(request, "محصول با موفقیت به سبد خرید اضافه شد")
+    else:
+        #available = product.max_quantity_to_sell()میتونیم بگیم که چند واحد اضافه کنه تا بتونه محصول رو دریافت کنه
+        messages.warning(request, "مواد اولیه برای ساخت محصول کافی نیست")
+    return redirect('cart')
+
+
+
+
+
 
