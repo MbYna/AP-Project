@@ -69,7 +69,7 @@ def storagePage(request):
 
 
 def cart(request):
-    order_cart = Orders.objects.filter(user=request.user)
+    order_cart = Orders.objects.filter(user=request.user).first
     total = 0
     items = []
     if order_cart:

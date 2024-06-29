@@ -39,6 +39,7 @@
             height: 35px ;
             width: 70px;
             border-radius: 35px;
+            margin-top: 7px;
         }
         
         .mt-50{
@@ -142,6 +143,11 @@
         .dropdown:focus-within .dropdown-content {
             display: block;
         }
+        .form-control{
+            font-family:'lalezar-regular'
+            width: 14px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -206,7 +212,13 @@
 
                     <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
                         <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="number" id="quantity_{{ i.id }}" name="quantity" class="form-control" value="1" min="1">
+                        </div>
                         <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                        </form>
                     </div>
                 </div>
                 <br>
@@ -232,7 +244,13 @@
 
                     <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
                         <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                        <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="number" id="quantity_{{ i.id }}" name="quantity" class="form-control" value="1" min="1">
+                            </div>
+                            <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                            </form>
                     </div>
                 </div>
                 <br>
@@ -258,7 +276,13 @@
 
                     <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
                         <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                        <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="number" id="quantity_{{ i.id }}" name="quantity" class="form-control" value="1" min="1">
+                            </div>
+                            <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                            </form>
                     </div>
                 </div>
                 <br>
@@ -285,7 +309,13 @@
 
                             <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
                                 <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                                <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="number" id="quantity_{{ i.name }}" name="quantity" class="form-control" value="1" min="1">
+                                    </div>
+                                    <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+                                    </form>
                             </div>
                         </div>
                         <br>

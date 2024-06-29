@@ -56,3 +56,4 @@ class User_Orders(models.Model):
 class Orders_Product(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
