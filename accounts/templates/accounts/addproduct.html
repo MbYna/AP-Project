@@ -3,7 +3,7 @@
 <html>
     
 <head>
-	<title>Login</title>
+	<title>کالای جدید</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
@@ -80,6 +80,13 @@
 			outline: 0px !important;
 		}
 
+		input[type="text"] {
+			min-width: 0 !important;
+		}
+
+		input[name^="product_ingredients"] {
+			width: 80%;
+		}
 	</style>
 
 </head>
@@ -92,8 +99,10 @@
 				</div>
 				<div class="d-flex justify-content-center form_container , lalezar-regular">
 
-					<form method="POST" action="">
+					<form method="POST" action="" enctype="multipart/form-data">
 						{% csrf_token %}
+						{{ formset.management_form }}
+
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="gg-glass"></i></span>
@@ -112,12 +121,31 @@
 							</div>
 							{{form.category}}
 						</div>
-						<div class="input-group mb-2">
+						<div class="input-group mb-2 mx-4">
 							{{form.image}}
 						</div>
-				   		<div class="d-flex justify-content-center mt-3 login_container">
-				 			<input class="btn login_btn" type="submit" value="افزودن"  >
-				   		</div>
+
+						{% for formset_form in formset %}
+							<div style="display: flex; flex-wrap: nowrap;" class="container row">
+								<div class="col col-md-2">
+									{{ formset_form.ingredient }}
+								</div>
+								<div class="col col-md-10">
+									<div class="input-group mb-2" style="display: flex; flex-wrap: nowrap;">
+										<div class=" input-group-prepend">
+											<span class="input-group-text">{{ formset_form.ingredient.initial.unit }}</span>
+										</div>
+										{{ formset_form.amount }}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+
+						<div class="d-flex justify-content-center mt-3 login_container">
+							<button type="submit" class="btn login_btn">
+								افزودن
+							</button>
+						</div>
 					</form>
 				</div>
 

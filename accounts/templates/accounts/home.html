@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Document</title>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/enter.css' rel='stylesheet'>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/shopping-cart.css' rel='stylesheet'>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/check-r.css' rel='stylesheet'>
@@ -110,10 +110,10 @@
                         <a href="{% url 'menu' %}#dam">دمنوش</a>
                     </div>
                 <li>
-                    <div class="icon-label"><i class="gg-check-r icon"></i><a href="" class="name">سوابق خرید</a></div>
+                    <div class="icon-label"><i class="gg-check-r icon"></i><a href="{% url 'cart_history' %}" class="name">سوابق خرید</a></div>
                 </li>
                 <li>
-                    <div class="icon-label"><i class="gg-shopping-cart icon"></i><a href="" class="name">سبد خرید</a></div>
+                    <div class="icon-label"><i class="gg-shopping-cart icon"></i><a href="{% url 'cart' %}" class="name">سبد خرید</a></div>
                 </li>
                 {% if user.is_authenticated %}
                 {% if user.is_staff %}

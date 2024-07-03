@@ -1,115 +1,148 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import *
-from .models import *
+from .forms import ProductForm, Register
+from django import forms
+from .models import Product, Cart, CartItem, Storage, Category, ProductIngredient
+from django.db import transaction
+from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from django.contrib.auth import authenticate,login,logout
-from APProject import urls
+from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 
-def loginPage(request):
-    if request.method=="POST":
-        username=request.POST.get("username")
-        password=request.POST.get("password")
-        user=authenticate(request,username=username,password=password)
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request,user)
+            login(request, user)
             return redirect("home")
         else:
-            messages.info(request,'نام کاربری یا رمز عبور اشتباه است')
-            
+            messages.info(request, "نام کاربری یا رمز عبور اشتباه است")
+
     return render(request, "accounts/login.html")
 
-def logoutPage(request):
+
+def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect("home")
 
-def registerPage(request):
-    form=Register()
-    if request.method=="POST":
-        form=Register(request.POST)
+
+def signup_view(request):
+    form = Register()
+    if request.method == "POST":
+        form = Register(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,'حساب شما با موفقیت ساخته شد')
-            return redirect('login')
-    context={'form':form}
-    return render(request, "accounts/register.html",context)
-
-def menuPage(request):
-    products=Product.objects.all()
-    context={'products':products}
-    return render(request,'accounts/menu.html',context)
-
-def adminPage(request):
-    return render(request,'accounts/admin.html')
-
-def addProduct(request):
-    form=ProductForm()
-    if request.method=="POST":
-        form=ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('myadmin')
-    context={'form':form}
-    return render(request, "accounts/addproduct.html",context)
+            messages.success(request, "حساب شما با موفقیت ساخته شد")
+            return redirect("login")
+    context = {"form": form}
+    return render(request, "accounts/register.html", context)
 
 
-def storagePage(request):
-    if request.method == 'POST':
+def menu_view(request):
+    categories = Category.objects.all()
+    context = {"categories": categories}
+    return render(request, "accounts/menu.html", context)
+
+
+def admin_view(request):
+    return render(request, "accounts/admin.html")
+
+
+def create_product_view(request):
+    ProductIngredientFormset = forms.inlineformset_factory(
+        Product,
+        ProductIngredient,
+        fields=["ingredient", "amount"],
+        extra=Storage.objects.count(),
+    )
+
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        formset_data = ProductIngredientFormset(
+            request.POST,
+            initial=[
+                {"ingredient": ingredient} for ingredient in Storage.objects.all()
+            ],
+        )
+        if form.is_valid() and formset_data.is_valid():
+            with transaction.atomic():
+                product = form.save()
+                formset_data.instance = product
+                formset_data.save()
+
+            return redirect("myadmin")
+
+    form = ProductForm()
+    formset = ProductIngredientFormset(
+        initial=[{"ingredient": ingredient} for ingredient in Storage.objects.all()]
+    )
+    context = {"form": form, "formset": formset}
+    return render(request, "accounts/addproduct.html", context)
+
+
+def storage_view(request):
+    if request.method == "POST":
         # Get user input
-        ingredient_name = request.POST.get('ingr')
-        ingredient_amount = request.POST.get('left')
+        ingredient_name = request.POST.get("name")
+        ingredient_amount = request.POST.get("amount")
+        ingredient_unit = request.POST.get("unit")
 
-        # Create an Ingredient instance and save it to the database
-        Storages.objects.create(name=ingredient_name, amount=ingredient_amount)
+        # Create an storage instance and save it to the database
+        Storage.objects.create(
+            name=ingredient_name, amount=ingredient_amount, unit=ingredient_unit
+        )
 
-        # Optionally, you can return an HTTP response or redirect to another page
-        return HttpResponse("Data added successfully!")
-    return render(request,'accounts/storage.html')
+        # redirect to the previous page
+        return redirect(request.headers.get("Referer", "/"))
+
+    return render(request, "accounts/storage.html", {"storages": Storage.objects.all()})
 
 
-def cart(request):
-    order_cart = Orders.objects.filter(user=request.user).first
-    total = 0
-    items = []
-    if order_cart:
-        for item in Orders_Product.objects.filter(Orders=order_cart):
-            all = item.product.price * item.quantity
-            items.append({
-                'product': item.product,
-                'quantity': item.quantity,
-                'price': item.product.price,
-                'item_total': all,
-                'id': item.id
-            })
-            total += all
-    return render(request, 'accounts/cart.html', {'items': items ,'total': total})
+def cart_view(request):
+    user = request.user
+    cart, _ = Cart.objects.get_or_create(user=user, is_purchased=False)
 
-def add_to_cart(request,product_id):
-    product = get_object_or_404(Product, id=product_id)
+    context = {"cart": cart}
+    return render(request, "accounts/cart.html", context)
+
+@login_required
+@require_POST
+def add_to_cart_view(request, product_pk):
+    user = request.user
+    product = get_object_or_404(Product, pk=product_pk)
     quantity = int(request.POST.get('quantity', 1))
+    cart, _ = Cart.objects.get_or_create(user=user, is_purchased=False)
+    cart.add_to_cart(product, quantity)
+    return redirect("cart")
 
-    if product.has_sufficient_ingredients(quantity):   #آیا می‌توان محصول را با تعداد مشخص شده خریداری کرد یا خیر
-        order, created_ = Orders.objects.get_or_create(user=request.user)
-        order_product, created_ = Orders_Product.objects.get_or_create(order=order, product=product)
-        if not created_:
-            order_product.quantity += quantity
+def update_cart_view(request):
+    user = request.user
+    cart = get_object_or_404(Cart, user=user, is_purchased=False)
+
+    for cart_item in cart.cart_items.all():
+        quantity = request.POST.get(f'quantity_{cart_item.product.pk}')
+        if int(quantity) > 0:
+            cart_item.quantity = quantity
+            cart_item.save()
         else:
-            order_product.quantity = quantity
-        order_product.save()
+            cart_item.delete()
 
-        for Ingredient in product.Ingredient_set.all(): #مقدار موجودی محصول در انبار کاهش می‌یابد
-            Ingredient.Storage.amount -= Ingredient.amount * quantity
-            Ingredient.Storage.save()
-
-        messages.success(request, "محصول با موفقیت به سبد خرید اضافه شد")
-    else:
-        #available = product.max_quantity_to_sell()میتونیم بگیم که چند واحد اضافه کنه تا بتونه محصول رو دریافت کنه
-        messages.warning(request, "مواد اولیه برای ساخت محصول کافی نیست")
     return redirect('cart')
 
+def checkout_view(request):
+    user = request.user
+    cart = Cart.objects.get(user=user, is_purchased=False)
+    cart.is_purchased = True
+    cart.save()
+    return redirect("home")
 
 
-
-
-
+def cart_history_view(request):
+    user = request.user
+    carts = Cart.objects.filter(user=user, is_purchased=True)
+    context = {"carts": carts}
+    return render(request, "accounts/cart_history.html", context)

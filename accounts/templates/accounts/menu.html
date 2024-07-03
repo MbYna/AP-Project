@@ -1,29 +1,29 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=Lalezar&display=swap" rel="stylesheet">
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-<link href='https://unpkg.com/css.gg@2.0.0/icons/css/enter.css' rel='stylesheet'>
-<link href='https://unpkg.com/css.gg@2.0.0/icons/css/shopping-cart.css' rel='stylesheet'>
-<link href='https://unpkg.com/css.gg@2.0.0/icons/css/check-r.css' rel='stylesheet'>
-<link href='https://unpkg.com/css.gg@2.0.0/icons/css/menu.css' rel='stylesheet'>
-<link href='https://unpkg.com/css.gg@2.0.0/icons/css/coffee.css' rel='stylesheet'>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Menu</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/enter.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/shopping-cart.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/check-r.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/menu.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/coffee.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
     <style>
         .lalezar-regular {
-			font-family: "Lalezar", system-ui;
-			font-weight: 400;
-			font-style: normal;
-		  }
+            font-family: "Lalezar", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
         body {
             margin: 0;
-            font-family:'lalezar-regular'
+            font-family: 'lalezar-regular';
             font-size: .8125rem;
             font-weight: 400;
             line-height: 1.5385;
@@ -32,54 +32,43 @@
             background-color: #f7ccac;
         }
         .btn {
-            background-color:#3a3845 ;
+            background-color: #3a3845;
             font-family: lalezar-regular;
             color: #f7ccac;
             border: 0px;
-            height: 35px ;
+            height: 35px;
             width: 70px;
             border-radius: 35px;
-            margin-top: 7px;
         }
-        
-        .mt-50{
+        .mt-50 {
             margin-top: 50px;
         }
-        .mb-50{
+        .mb-50 {
             margin-bottom: 50px;
         }
-        
-        a{
+        a {
             text-decoration: none !important;
         }
-        
-        
         .fa {
-                color: red;
+            color: red;
         }
-
         .container {
             display: flex;
             justify-content: center;
         }
-
         .card {
             background-color: #f4d7bf;
-            border: 4px solid #3a3845 ;
+            border: 4px solid #3a3845;
             padding-top: 20px;
             width: 300px;
             border-radius: 40px;
-
         }
-
         img {
             border-radius: 20px;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
         }
-        
         nav ul {
             display: flex;
-            
         }
         li {
             list-style: none;
@@ -94,14 +83,13 @@
         .icon-label a {
             text-decoration: none;
         }
-
         .icon {
             margin-left: 8px;
             color: #f7ccac;
         }
         .navbar {
             display: flex;
-            background-color:#3a3845;
+            background-color: #3a3845;
             justify-content: center;
             margin-bottom: 20px;
         }
@@ -111,14 +99,13 @@
         .dropdown {
             position: relative;
             margin-left: auto;
-            cursor: pointer;
         }
         .dropbtn {
             background-color: inherit;
             color: #f7ccac;
             border: none;
             outline: none;
-            font-family: inherit;;
+            font-family: inherit;
         }
         .dropdown-content {
             display: none;
@@ -144,31 +131,6 @@
         .dropdown:focus-within .dropdown-content {
             display: block;
         }
-        .form-control{
-            font-family:'lalezar-regular'
-            width: 14px;
-            text-align: center;
-        }
-        #myBtn {
-            font-family:'lalezar-regular'
-            display: none; /* Hidden by default */
-            position: fixed; /* Fixed/sticky position */
-            bottom: 20px; /* Place the button at the bottom of the page */
-            right: 30px; /* Place the button 30px from the right */
-            z-index: 99; /* Make sure it does not overlap */
-            border: none; /* Remove borders */
-            outline: none; /* Remove outline */
-            background-color: #3a3845; /* Set a background color */
-            color: white; /* Text color */
-            cursor: pointer; /* Add a mouse pointer on hover */
-            padding: 15px; /* Some padding */
-            border-radius: 10px; /* Rounded corners */
-            font-size: 18px; /* Increase font size */
-          }
-          
-          #myBtn:hover {
-            background-color: #555; /* Add a dark-grey background on hover */
-          }
     </style>
 </head>
 <body>
@@ -176,7 +138,7 @@
         <nav>
             <ul>
                 <li class="dropdown">
-                    <div class="icon-label"><i class="gg-menu icon"></i><button class="dropbtn" >منو</button></div>
+                    <div class="icon-label"><i class="gg-menu icon"></i><button class="dropbtn">منو</button></div>
                     <div class="dropdown-content">
                         <a href="{% url 'menu' %}">همه</a>
                         <a href="{% url 'menu' %}#hot">نوشیدنی های گرم</a>
@@ -184,12 +146,12 @@
                         <a href="{% url 'menu' %}#cake">کیک</a>
                         <a href="{% url 'menu' %}#dam">دمنوش</a>
                     </div>
-                
-                <li>
-                    <div class="icon-label"><i class="gg-check-r icon"></i><a href="" class="name">سوابق خرید</a></div>
                 </li>
                 <li>
-                    <div class="icon-label"><i class="gg-shopping-cart icon"></i><a href="" class="name">سبد خرید</a></div>
+                    <div class="icon-label"><i class="gg-check-r icon"></i><a href="{% url 'cart_history' %}" class="name">سوابق خرید</a></div>
+                </li>
+                <li>
+                    <div class="icon-label"><i class="gg-shopping-cart icon"></i><a href="{% url 'cart' %}" class="name">سبد خرید</a></div>
                 </li>
                 {% if user.is_authenticated %}
                 {% if user.is_staff %}
@@ -205,168 +167,39 @@
                     <div class="icon-label"><i class="gg-enter icon"></i><a href="{% url 'login' %}" class="name">ورود به حساب کاربری</a></div>
                 </li>
                 {% endif %}
-                
             </ul>
         </nav>
     </div>
 
-    <div class="container d-flex justify-content-center mt-50 mb-50 ">
-            
+    <div class="container d-flex justify-content-center mt-50 mb-50">
         <div class="row">
-           <div class="col-md-10 lalezar-regular">
-            <h1 id="hot">نوشیدنی های گرم</h1>
-            {% for i in products %}
-            {%if i.category == "hot" %}
-            <div class="card card-body" style="margin-bottom: 60px;">
-                <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
-                    <div class="mr-2 mb-3 mb-lg-0">
-                        
-                        <img src="{{i.image.url}}" width="200" height="200">      
-                       
-                    </div>
-
-                    <div class="media-body ">
-                        <h2 class="media-title font-weight-semibold">
-                            {{i.name}}
-                        </h2>
-                    </div>
-
-                    <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
-                        <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                        <form method="post" action="#"> 
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input type="number" id="quantity_{{ i.id }}" name="quantity" class="form-control" value="1" min="1">
-                        </div>
-                        <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <br>
-    </div>
-                {%endif%}
-                {%endfor%}
-            <h1 id="cold">نوشیدنی های سرد</h1>
-            {% for i in products %}
-            {%if i.category == "cold" %}
-            <div class="card card-body" style="margin-bottom: 60px;" >
-                <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
-                    <div class="mr-2 mb-3 mb-lg-0">
-                        
-                        <img src="{{i.image.url}}" width="200" height="200">
-                       
-                    </div>
-
-                    <div class="media-body ">
-                        <h2 class="media-title font-weight-semibold">
-                            {{i.name}}
-                        </h2>
-                    </div>
-
-                    <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
-                        <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                        <form method="post" action="#"> 
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <input type="number" id="quantity_{{ i.id }}" name="quantity" class="form-control" value="1" min="1">
-                            </div>
-                            <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
-                            </form>
-                    </div>
-                </div>
-                <br>
-    </div>
-{%endif%}
-{%endfor%}       
-            <h1 id="cake">کیک</h1>                   
-            {% for i in products %}
-            {%if i.category == "cake" %}
-            <div class="card card-body" style="margin-bottom: 60px;" >
-                <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
-                    <div class="mr-2 mb-3 mb-lg-0">
-                        
-                        <img src="{{i.image.url}}" width="200" height="200">
-                       
-                    </div>
-
-                    <div class="media-body ">
-                        <h2 class="media-title font-weight-semibold">
-                            {{i.name}}
-                        </h2>
-                    </div>
-
-                    <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
-                        <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                        <form method="post" action="#"> 
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <input type="number" id="quantity_{{ i.id }}" name="quantity" class="form-control" value="1" min="1">
-                            </div>
-                            <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
-                            </form>
-                    </div>
-                </div>
-                <br>
-    </div>
-                    {%endif%}
-                    {%endfor%}
-
-                    <h1 id="dam">دمنوش</h1>
-                    {% for i in products %}
-                    {%if i.category == "dam" %}
-                    <div class="card card-body" style="margin-bottom: 60px;" >
-                        <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
-                            <div class="mr-2 mb-3 mb-lg-0">
-                                
-                                <img src="{{i.image.url}}" width="200" height="200">
-                               
-                            </div>
-
-                            <div class="media-body ">
-                                <h2 class="media-title font-weight-semibold">
-                                    {{i.name}}
-                                </h2>
-                            </div>
-
-                            <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
-                                <h4 class="mb-0 font-weight-semibold">{{i.price}} تومان</h4>
-                                <form method="post" action="#"> 
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <input type="number" id="quantity_{{ i.name }}" name="quantity" class="form-control" value="1" min="1">
-                                    </div>
-                                    <button type="button" class="btn  lalezar-regular"> <i class="fas fa-shopping-cart"></i></button>
+            {% for category in categories %}
+                <div class="col-md-10 lalezar-regular">
+                    <h1 id="{{ category.slug }}">{{ category.name }}</h1>
+                    {% for i in category.products.all %}
+                        <div class="card card-body" style="margin-bottom: 60px;">
+                            <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
+                                <div class="mr-2 mb-3 mb-lg-0">
+                                    <img src="{% if i.image %}{{ i.image.url }}{% endif %}" width="200" height="200">
+                                </div>
+                                <div class="media-body">
+                                    <h2 class="media-title font-weight-semibold">{{ i.name }}</h2>
+                                </div>
+                                <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
+                                    <h3 class="mb-0 font-weight-semibold">{{ i.price }} تومان</h3>
+                                    <form method="post" action="{% url 'add_to_cart' i.pk %}">
+                                        {% csrf_token %}
+                                        <input type="number" name="quantity" value="1" min="1" style="width: 60px; margin-bottom: 10px;">
+                                        <button type="submit" class="btn lalezar-regular" style="padding: 0 1rem;"><i class="fas fa-shopping-cart"></i></button>
                                     </form>
+                                </div>
                             </div>
+                            <br>
                         </div>
-                        <br>
-            </div>
-                        {%endif%}
-                        {%endfor%}             
-            </div>         
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
     </div>
-    <button onclick="topFunction()" id="myBtn" title="Go to top">UP</button>
-    <script>
-        // Get the button:
-        let mybutton = document.getElementById("myBtn");
-
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-        }
-
-        // When the user clicks on the button, scroll to the top of the document
-        function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-        }
-    </script>
 </body>
 </html>

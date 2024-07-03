@@ -1,16 +1,18 @@
-
-from django.contrib import admin
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('login/', views.loginPage , name="login"),
-    path('register/', views.registerPage , name="register"),
-    path('logout/', views.logoutPage, name="logout"),
-    path('menu/',views.menuPage ,name="menu"),
-    path('myadmin/',views.adminPage, name="myadmin"),
-    path('addproduct/',views.addProduct, name="add"),
-    path('storage/',views.storagePage, name="storage"),
-    path('cart/', views.cart , name="cart"),
-    path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
+    path("login/", views.login_view, name="login"),
+    path("register/", views.signup_view, name="register"),
+    path("logout/", views.logout_view, name="logout"),
+    path("menu/", views.menu_view, name="menu"),
+    path("myadmin/", views.admin_view, name="myadmin"),
+    path("addproduct/", views.create_product_view, name="add"),
+    path("product/", views.create_product_view, name="add"),
+    path("storage/", views.storage_view, name="storage"),
+    path("cart/", views.cart_view, name="cart"),
+    path("cart/history", views.cart_history_view, name="cart_history"),
+    path("cart/purchase", views.checkout_view, name="checkout"),
+    path("cart/<int:product_pk>", views.add_to_cart_view, name="add_to_cart"),
+    path('update-cart/', views.update_cart_view, name='update_cart'),
 ]
