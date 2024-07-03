@@ -62,7 +62,6 @@ class ProductIngredient(models.Model):
 class Storage(models.Model):
     name = models.CharField(max_length=255, unique=True)
     amount = models.FloatField(default=0)
-    unit = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name

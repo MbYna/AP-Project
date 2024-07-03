@@ -89,18 +89,17 @@ def storage_view(request):
         # Get user input
         ingredient_name = request.POST.get("name")
         ingredient_amount = request.POST.get("amount")
-        ingredient_unit = request.POST.get("unit")
+
 
         # Create an storage instance and save it to the database
         Storage.objects.create(
-            name=ingredient_name, amount=ingredient_amount, unit=ingredient_unit
+            name=ingredient_name, amount=ingredient_amount
         )
 
         # redirect to the previous page
         return redirect(request.headers.get("Referer", "/"))
 
     return render(request, "accounts/storage.html", {"storages": Storage.objects.all()})
-
 
 def cart_view(request):
     user = request.user

@@ -185,7 +185,6 @@
                 <div>
                     <input id="ingr" name="name" placeholder="مواد اولیه"/>
                     <input id="left" name="amount" placeholder="مقدار باقی مانده"/>
-                    <input id="unit" name="unit" placeholder="واحد"/>
                     <button class="add_new" type="submit">+ اضافه</button>
                 </div>
             </form>
@@ -196,17 +195,13 @@
                         <tr>
                              <th>مواد اولیه</th>
                             <th>مقدار باقی مانده</th>
-                            <th>ویرایش</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for storage in storages %}
                             <tr>
                                 <td>{{ storage.name }}</td>
-                                <td>{{ storage.amount }} {{ storage.unit }}</td>
-                                <td>
-                                    <button onclick="editData(this)">Edit</button>
-                                </td>
+                                <td>{{ storage.amount }} واحد</td>
                             </tr>
                         {% empty %}
                             <tr style="text-align: center;">
@@ -218,35 +213,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function editData(button) {
-            let row = button.parentNode.parentNode;
-
-            let ingCell = row.cells[0];
-            let leftCell = row.cells[1];
-            let unitCell = row.cells[2];
-
-            let ingInput =
-                prompt("Enter the updated:",
-                    ingCell.innerHTML);
-            let leftInput =
-                prompt("Enter the updated:",
-                    leftCell.innerHTML);
-            let unitInput =
-                prompt("Enter the updated:",
-                    unitCell.innerHTML);
-
-            ingCell.innerHTML = ingInput;
-            leftCell.innerHTML = leftInput;
-            unitCell.innerHTML = unitInput;
-        }
-         function clearInputs() {
-
-             // Clear input fields
-             document.getElementById("ingr").value = "";
-             document.getElementById("left").value = "";
-             document.getElementById("unit").value = "";
-         }
-    </script>
 </body>
 </html>
