@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import timedelta
+from collections import OrderedDict
 from django.core.validators import MinValueValidator
 from django.utils import timezone
 from django.db.models import Sum
@@ -32,15 +34,13 @@ class Product(models.Model):
         return True
 
     def max_quantity_to_sell(self):
-        max_quantity = float("inf")  # Initialize with positive infinity
-        for ingredient in self.ingredients.all():
-            storage_amount = Storage.objects.get(name=ingredient.name).amount
-            ingredient_quantity_needed = ingredient.amount
-            max_quantity = min(
-                max_quantity, storage_amount // ingredient_quantity_needed
-            )
-        return max_quantity
-
+        quantities = [
+            Storage.objects.get(name=ingredient.ingredient.name).amount // ingredient.amount
+            for ingredient in self.product_ingredients.all()
+            if ingredient.amount > 0
+        ]
+        return min(quantities) if quantities else 0
+        
     def __str__(self):
         return self.name
 
@@ -121,9 +121,35 @@ class CartItem(models.Model):
     quantity = models.IntegerField(validators=[MinValueValidator(1)], default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @classmethod
+    def get_sale_in_dayframe(cls, product, dayframe):
+        sales = (
+            cls.objects.filter(
+                product=product,
+                cart__purchased__gte=timezone.now() - timedelta(days=dayframe),
+            )
+            .values("cart__purchased__date")
+            .annotate(total_sales=Sum("quantity"))
+            .order_by("-cart__purchased__date")
+            .values("cart__purchased__date", "total_sales")
+        )
+
+        sales_dict = OrderedDict([
+            (sale["cart__purchased__date"].isoformat(), sale["total_sales"])
+            for sale in sales
+        ])
+        
+        for i in range(dayframe):
+            date = (timezone.now() - timedelta(days=i)).date().isoformat()
+            if date not in sales_dict:
+                sales_dict[date] = 0
+
+        return OrderedDict(reversed(list(sales_dict.items())))
+
     @property
     def price(self):
         return self.product.price * self.quantity
 
     def __str__(self):
         return self.product.name
+
