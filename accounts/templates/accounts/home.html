@@ -203,7 +203,8 @@
         </button>
       </div>
       <br><br>
-      <h1 class="lalezar-regular" style="text-align: center;">Best Selling Products</h1>
+      <h1 class="lalezar-regular" style="text-align: center;">محصولات پرفروش</h1>
+      <br>
     <ul>
         {% for i in products %}
                         <div class="card card-body" style="margin-bottom: 60px;">
@@ -211,11 +212,13 @@
                                 <div class="mr-2 mb-3 mb-lg-0">
                                     <img src="{% if i.image %}{{ i.image.url }}{% endif %}" width="200" height="200">
                                 </div>
+                                <br>
                                 <div class="media-body lalezar-regular">
                                     <h2 class="media-title font-weight-semibold">{{ i.name }}</h2>
                                 </div>
                                 <div class="mt-3 mt-lg-0 ml-lg-3 text-center lalezar-regular">
-                                    <h3 class="mb-0 font-weight-semibold">{{ i.price }} تومان</h3>
+                                    <h4 class="mb-0 font-weight-semibold">{{ i.price }} تومان</h4>
+                                    <br>
                                     <form method="post" action="{% url 'add_to_cart' i.pk %}">
                                         {% csrf_token %}
                                         <input type="number" name="quantity" value="1" min="1" style="width: 60px; margin-bottom: 10px;">
