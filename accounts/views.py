@@ -44,8 +44,9 @@ def signup_view(request):
     return render(request, "accounts/register.html", context)
 
 def home(request):
-    #top_products = Product.objects.annotate(total_sold=Sum('cart_items__quantity')).order_by('-total_sold')[:12]
-    return render(request, 'accounts/home.html', {})
+    best_selling_products = Product.get_best_selling_products(top_n=10)
+    return render(request, 'accounts/home.html', {'products': best_selling_products})
+
 
 
 def menu_view(request):
@@ -166,3 +167,4 @@ def cart_history_view(request):
     carts = Cart.objects.filter(user=user, is_purchased=True)
     context = {"carts": carts}
     return render(request, "accounts/cart_history.html", context)
+

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils import timezone
-
+from django.db.models import Sum
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
@@ -10,7 +10,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -44,6 +43,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    @classmethod
+    def get_best_selling_products(cls, top_n=10):
+        return (
+            cls.objects.annotate(total_sales=Sum("cart_items__quantity"))
+            .order_by("-total_sales")[:top_n]
+        )
 
 
 class ProductIngredient(models.Model):
