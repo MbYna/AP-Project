@@ -89,11 +89,11 @@ def storage_view(request):
         # Get user input
         ingredient_name = request.POST.get("name")
         ingredient_amount = request.POST.get("amount")
-
+        ingredient_unit = request.POST.get("unit")
 
         # Create an storage instance and save it to the database
         Storage.objects.create(
-            name=ingredient_name, amount=ingredient_amount
+            name=ingredient_name, amount=ingredient_amount, unit=ingredient_unit
         )
 
         # redirect to the previous page
@@ -115,9 +115,14 @@ def add_to_cart_view(request, product_pk):
     user = request.user
     product = get_object_or_404(Product, pk=product_pk)
     quantity = int(request.POST.get('quantity', 1))
-    cart, _ = Cart.objects.get_or_create(user=user, is_purchased=False)
-    cart.add_to_cart(product, quantity)
-    return redirect("cart")
+    if product.has_sufficient_ingredients(quantity):
+        cart, _ = Cart.objects.get_or_create(user=user, is_purchased=False)
+        cart.add_to_cart(product, quantity)
+        return redirect("cart")
+    else:
+        available = product.max_quantity_to_sell()
+        messages.warning(request, f'مواد اولیه مورد نیاز موجود نیست. فقط میتوانید {available} واحد اضافه کنید.')
+        return redirect("menu")
 
 def update_cart_view(request):
     user = request.user
@@ -136,11 +141,16 @@ def update_cart_view(request):
 def checkout_view(request):
     user = request.user
     cart = Cart.objects.get(user=user, is_purchased=False)
+    for cart_item in cart.cart_items.all():
+        for product_ingredient in cart_item.ingredients_set.all():
+            product_ingredient.storage.amount -= product_ingredient.amount * quantity
+            product_ingredient.storage.save()
     cart.is_purchased = True
+
     cart.save()
     return redirect("home")
 
-
+@login_required
 def cart_history_view(request):
     user = request.user
     carts = Cart.objects.filter(user=user, is_purchased=True)

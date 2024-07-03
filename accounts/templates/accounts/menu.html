@@ -187,7 +187,9 @@
             </ul>
         </nav>
     </div>
-
+    {%for message in messages%}
+    <p class="message lalezar-regular" style="color: red;">{{message}}</p>
+    {%endfor%}
     <div class="container d-flex justify-content-center mt-50 mb-50">
         <div class="row">
             {% for category in categories %}
