@@ -8,6 +8,7 @@
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/shopping-cart.css' rel='stylesheet'>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/check-r.css' rel='stylesheet'>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/menu.css' rel='stylesheet'>
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/home-alt.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Harmattan:wght@400;500;600;700&family=Lalezar&display=swap" rel="stylesheet">
@@ -164,6 +165,9 @@
     <div class="navbar lalezar-regular">
         <nav>
             <ul>
+                <li>
+                    <div class="icon-label"><i class="gg-home-alt icon"></i><a href="{% url 'home' %}" class="name" > خانه </a></div>
+                </li>
                 <li class="dropdown">
                     <div class="icon-label" id="item1"><i class="gg-menu icon"></i><button class="dropbtn" >ویرایش</button></div>
                     <div class="dropdown-content">
