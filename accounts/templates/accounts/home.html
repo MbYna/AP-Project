@@ -101,7 +101,7 @@
         }
         .btn {
             background-color: #3a3845;
-            font-family: lalezar-regular;
+            font-family: 'lalezar-regular';
             color: #f7ccac;
             border: 0px;
             height: 35px;
@@ -130,11 +130,14 @@
             padding-top: 20px;
             width: 300px;
             border-radius: 40px;
+            margin-right: auto;
+            margin-left: auto;
         }
         img {
             border-radius: 20px;
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 1);
         }
+        
     </style>
 </head>
 <body>
@@ -216,7 +219,7 @@
                                     <form method="post" action="{% url 'add_to_cart' i.pk %}">
                                         {% csrf_token %}
                                         <input type="number" name="quantity" value="1" min="1" style="width: 60px; margin-bottom: 10px;">
-                                        <button type="submit" class="btn lalezar-regular" style="padding: 0 1rem;"><i class="fas fa-shopping-cart"></i></button>
+                                        <button type="submit" class="btn lalezar-regular" style="padding: 0 1rem;">خرید</button>
                                     </form>
                                 </div>
                             </div>
