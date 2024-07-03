@@ -116,7 +116,6 @@ def cart_view(request):
     return render(request, "accounts/cart.html", context)
 
 @login_required
-@require_POST
 def add_to_cart_view(request, product_pk):
     user = request.user
     product = get_object_or_404(Product, pk=product_pk)
@@ -146,13 +145,18 @@ def update_cart_view(request):
 
 def checkout_view(request):
     user = request.user
-    cart = Cart.objects.get(user=user, is_purchased=False)
-    for cart_item in cart.cart_items.all():
-        for product_ingredient in cart_item.ingredients_set.all():
-            product_ingredient.storage.amount -= product_ingredient.amount * quantity
-            product_ingredient.storage.save()
-    cart.is_purchased = True
+    cart = get_object_or_404(Cart, user=user, is_purchased=False)
+    cart_items = cart.cart_items.all()
 
+    for cart_item in cart_items:
+        product = cart_item.product
+        quantity = cart_item.quantity
+        for product_ingredient in product.product_ingredients.all():
+            storage = product_ingredient.ingredient
+            required_amount = product_ingredient.amount * quantity
+            storage.amount -= required_amount
+            storage.save()
+    cart.is_purchased = True
     cart.save()
     return redirect("home")
 
