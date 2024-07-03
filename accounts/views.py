@@ -68,7 +68,7 @@ def create_product_view(request):
     )
 
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         formset_data = ProductIngredientFormset(
             request.POST,
             initial=[
