@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 
 
 def login_view(request):
@@ -29,6 +30,7 @@ def logout_view(request):
     logout(request)
     return redirect("home")
 
+  
 
 def signup_view(request):
     form = Register()
@@ -40,6 +42,10 @@ def signup_view(request):
             return redirect("login")
     context = {"form": form}
     return render(request, "accounts/register.html", context)
+
+def home(request):
+    #top_products = Product.objects.annotate(total_sold=Sum('cart_items__quantity')).order_by('-total_sold')[:12]
+    return render(request, 'accounts/home.html', {})
 
 
 def menu_view(request):
