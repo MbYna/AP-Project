@@ -101,6 +101,7 @@ def storage_view(request):
 
     return render(request, "accounts/storage.html", {"storages": Storage.objects.all()})
 
+
 def cart_view(request):
     user = request.user
     cart, _ = Cart.objects.get_or_create(user=user, is_purchased=False)
