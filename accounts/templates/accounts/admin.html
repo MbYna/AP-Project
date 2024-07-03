@@ -124,10 +124,15 @@
         </nav>
     </div>
     <div class="container">
+<<<<<<< HEAD
         <div>
             <div class="chart w-50 mx-auto">
                 <canvas id="barChart" width="400" height="400"></canvas>
             </div>
+=======
+        <div class="chart">
+            <canvas id="barChart" width="400" height="400"></canvas>
+>>>>>>> 8b003b1fb68b48906692405468eb13cafe44fff7
             {% for data in chart_data %}
                 <label for="{{ data.slug }}">{{ data.name }}</label>
                 <input type="radio" name="chart_dataset" id="{{ data.slug }}" value="{{ data.slug }}" {% if forloop.first %}checked{% endif %}>
@@ -179,10 +184,17 @@
         
         document.querySelectorAll("input[name='chart_dataset']").forEach((radio) => {
             radio.addEventListener('change', (e) => {
+<<<<<<< HEAD
                 const datasetIndex = chartData.findIndex((data) => data.slug === Number(e.target.value));
                 barChart.data.labels = chartData[datasetIndex].labels;
                 barChart.data.datasets[0].data = chartData[datasetIndex].vals;
                 barChart.data.datasets[0].label = `نمودار فروش ${chartData[datasetIndex].name}`;
+=======
+                const datasetIndex = chartData.findIndex((data) => data.slug === e.target.value);
+                barChart.data.labels = chartData[datasetIndex].labels;
+                barChart.data.datasets[0].data = chartData[datasetIndex].vals;
+                barChart.data.datasets[0].label = `${نمودار فروش chartData[datasetIndex].name}`
+>>>>>>> 8b003b1fb68b48906692405468eb13cafe44fff7
                 barChart.update();
             });
         });
