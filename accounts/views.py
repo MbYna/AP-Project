@@ -54,6 +54,22 @@ def menu_view(request):
     context = {"categories": categories}
     return render(request, "accounts/menu.html", context)
 
+def admin_view(request):
+    CHART_DAYFRAME = 7
+    chart_data = [
+        {
+            "slug": product.pk,
+            "name": product.name,
+            "labels": list(
+                CartItem.get_sale_in_dayframe(product, CHART_DAYFRAME).keys()
+            ),
+            "vals": list(CartItem.get_sale_in_dayframe(product, CHART_DAYFRAME).values()),
+        }
+        for product in Product.objects.all()
+    ]
+
+    return render(request, "accounts/admin.html", {"chart_data": chart_data})
+
 
 def admin_view(request):
     return render(request, "accounts/admin.html")

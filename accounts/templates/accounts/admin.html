@@ -126,38 +126,64 @@
     <div class="container">
         <div class="chart">
             <canvas id="barChart" width="400" height="400"></canvas>
+            {% for data in chart_data %}
+                <label for="{{ data.slug }}">{{ data.name }}</label>
+                <input type="radio" name="chart_dataset" id="{{ data.slug }}" value="{{ data.slug }}" {% if forloop.first %}checked{% endif %}>
+            {% endfor %}
         </div>
     </div>
+
+    {{ chart_data|json_script:"sale_chart_data" }}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.2/dist/chart.min.js"></script>
     <script src="bar chart.js"></script>
+    
     <script>
-        
+        const chartData = JSON.parse(document.getElementById('sale_chart_data').textContent) 
         const ctx = document.getElementById('barChart').getContext('2d');
+        
         const barChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(130, 111, 102)',
-                    ],
-                    borderColor: [
-                        'rgba(130, 111, 102)',
-                    ],
-                    borderWidth: 1
-                }]
+                labels: chartData[0].labels,
+                datasets: [
+                    {
+                        label: `نمودار فروش ${chartData[0].name}`,
+                        data: chartData[0].vals,
+                        backgroundColor: [
+                            'rgba(130, 111, 102)',
+                        ],
+                        borderColor: [
+                            'rgba(130, 111, 102)',
+                        ],
+                        borderWidth: 1
+                    }
+                ]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        },
+                        title: {
+                            display: true,
+                            text: 'تعداد'
+                        }
                     }
                 }
             }
         });
         
-            </script>
+        document.querySelectorAll("input[name='chart_dataset']").forEach((radio) => {
+            radio.addEventListener('change', (e) => {
+                const datasetIndex = chartData.findIndex((data) => data.slug === e.target.value);
+                barChart.data.labels = chartData[datasetIndex].labels;
+                barChart.data.datasets[0].data = chartData[datasetIndex].vals;
+                barChart.data.datasets[0].label = `${نمودار فروش chartData[datasetIndex].name}`
+                barChart.update();
+            });
+        });
+    </script>
 </body>
 </html>
