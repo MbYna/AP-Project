@@ -47,7 +47,8 @@ class Product(models.Model):
     @classmethod
     def get_best_selling_products(cls, top_n=10):
         return (
-            cls.objects.annotate(total_sales=Sum("cart_items__quantity"))
+            cls.objects.filter(cart_items__cart__is_purchased=True)
+            .annotate(total_sales=Sum("cart_items__quantity"))
             .order_by("-total_sales")[:top_n]
         )
 
